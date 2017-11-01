@@ -1159,7 +1159,6 @@
         % ==============================================
         % =========   DEFINICION BASICA      ===========
         % ==============================================
-        \clearpage
         \section{Definiciones Básicas}
 
             En el modelo relacional, los datos se dividen en diferentes \textbf{tablas}.
@@ -1638,13 +1637,86 @@
             % =========================================
             \subsection{Definición}
 
-                Decimos que Normalizar es el proceso por el cual convertimos todas nuestras relaciones
+                Decimos que normalizar es el proceso por el cual convertimos todas nuestras relaciones
                 en relaciones bien estructuradas y pequeñas.
                 Es decir, a efectos practicos lo que hacemos es dividir las relaciones que tenemos.
 
+                Podemos decir alternante que Normalización es el proceso de eliminación de
+                redundancias en una tabla para que sea más fácil de modificación.
 
-                Podemos decir alternante que Normalización es el \textbf{Proceso de eliminación de
-                redundancias en una tabla para que sea más fácil de modificación}
+                Podemos decir que la normalización es de descomposición de las tablas para eliminar
+                información redundante y anomalías al momento de insertar, actualizar o eliminar la
+                información.
+
+
+            % =========================================
+            % =======   RESUMEN        ================
+            % =========================================
+            \subsection{Formas Normales}
+
+                \begin{figure}[h]
+                    \centering
+                    \includegraphics[width=0.55\textwidth]{Normalizacion}
+                \end{figure}
+
+
+
+            % =========================================
+            % =  DEPENDECIA FUNCIONAL Y DETERMIANTES  =
+            % =========================================
+            \clearpage
+            \subsection{Dependencia Funcional y Determinantes}
+
+                Al hablar de la normalización tenemos que hablar casi obligatoriamente
+                de dependencias funcionales y de los derminantes.
+
+                Decimos que una dependencia funcional es una restricción entre dos conjuntos
+                de atributos en la base de datos.
+
+                Es decir, en una relación $R(Atributo_1, Atributo_2, \dots)$ sean $X$ y $Y$ subconjuntos de $R$, de la forma: $X = \{Atributo_a, Atributo_b, \dots\}$ y 
+                $Y = \{Atributo_\alpha, Atributo_\beta, \dots\}$ entonces decimos que:
+
+                \textbf{Hay una dependencia funcional de $X$ a $Y$ denotada por $X \longto Y$
+                si y solo si es que para cualquiera dos tupla $t_1, t_2$ de nuestra base de
+                datos, si los valores de $t_1$ son iguales a los de $t_2$ en X, entonces
+                también su valores serán iguales en los atributos de $Y$}.
+
+                \textbf{Decimos por lo mismo que $X$ determina a $Y$, por eso es común ver que se llama
+                a $X$ como el determinante de una dependencia funcional}.
+
+                % ======== EJEMPLO ========
+                \vspace{2em}
+                \textbf{Ejemplo}:
+                \begin{SmallIndentation}[1em]
+
+                    Ve esta tabla:
+
+                    \includegraphics[width=0.70\textwidth]{EjemploTablaSinNormalizar}
+
+                    Ve que podemos decir que $\{nss, noProyecto\}$ es una dependecia funcional
+                    de $\{horas\}$, porque para cualquier tupla que queramos si es que su $nss$ y su
+                    $noProyecto$ es igual entonces el atributo $horas$ será igual.
+
+                    Otra por ejemplo es $\{nss\} \to \{nombreEmpleado\}$ es una dependecia funcional
+                    porque si es que dos tuplas tienen el mismo $nss$ entonces su $nombreEmpleado$
+                    será igual.
+
+                    \textbf{Nota Importante:} Ve que no hay nada que nos impida tecnicamente de crear
+                    una tupla donde esto no se cumplierá, por ejemplo una tupla que tenga en mismo
+                    $nss$ pero diferente $nombreEmpleado$, pero bajo el esquema que estamos trabajando
+                    la base de datos esto nunca pasará, por eso las llamamos dependencias funcionales,
+                    no hay nada teórico que nos impida no cumplirlas, pero en la practica siempre
+                    se cumpliran.
+
+                \end{SmallIndentation}
+                    
+
+
+
+
+
+
+
 
 
 
@@ -1652,22 +1724,120 @@
             % =======        PASO 1    ================
             % =========================================
             \clearpage
-            \subsection{Paso 1: Eliminar Atributos Multivalor}
+            \subsection{Primera Forma Normal}
 
-                Se debe de cumplir la Regla de Integridad de Entidades
+                Decimos que una Relación $R$ esta en su primera forma normal
+                si y solo sí que el dominio de un atributo tiene sólo
+                valores atómicos, es decir si son atributos simples e indivisibles.
+
+                En otras palabras en la 1FN, debemos eliminar redundancia
+                y convertir los atributos complejos en atributos atómicos.
+
+                Esto a efectos practicos se vuelve en eliminar los atributos multivalor
+
+                % ======== EJEMPLO ========
+                \vspace{2em}
+                \textbf{Ejemplo}:
+                \begin{SmallIndentation}[1em]
+                \end{SmallIndentation}
+
 
             % =========================================
             % =======        PASO 2    ================
             % =========================================
             \clearpage
-            \subsection{Paso 2: Eliminar Dependencias Funcionales Parciales}
+            \subsection{Segunda Forma Normal}
 
+                Antes, antes, antes, para hablar de la segunda forma normal tenemos que 
+                hablar de lo que es una dependencia funcional parcial y total:
+
+                \begin{itemize}
+                    \item \textbf{Dependencia Funcional Parcial:}
+
+                        Decimos que tenemos una dependencia funcional parcial $X \longto Y$
+                        si es que podemos encontrar encontrar un subconjunto de $X$ que también
+                        determina a $Y$.
+
+                    \item \textbf{Dependencia Funcional Total:}
+
+                        Decimos que tenemos una dependencia funcional total $X \longto Y$
+                        si es que NO podemos encontrar encontrar un subconjunto de $X$ que también
+                        determina a $Y$.
+                \end{itemize}
+
+                Decimos que una Relación $R$ esta en su segunda forma normal
+                si y solo sí todos los atributos que no son llaves primarias, secundarias
+                o candidatas solo dependen de la llave primaria.
+
+                O de otro modo decimos que un esquema de relación $R$ está en 2FN si
+                todo atributo no primo depende funcionalmente de manera total de la
+                clave primaria de R.
+
+                % ======== EJEMPLO ========
+                \clearpage
+                \textbf{Ejemplo}:
+                \begin{SmallIndentation}[1em]
+
+                    Ve esta tabla:
+
+                    \includegraphics[width=0.70\textwidth]{EjemploParaNormalizarA2FN}
+                    
+                    Veamos las dependencias funcionales que tiene esta tabla:
+                    \begin{itemize}
+                        \item $\{nss, noProyecto\} \to \{horas\}$
+                        \item $\{nss, noProyecto\} \to \{nombreEmpleado\}$ y también
+                            $\{nss\} \to \{nombreEmpleado\}$ 
+                        \item $\{nss, noProyecto\} \to \{nombreProyecto, localizacionDepto\}$ y también \\
+                            $\{noProyecto\} \to \{nombreProyecto, localizacionDepto\}$
+                    \end{itemize}
+
+                    Nota que hay varias dependencias funcionales parciales, para corregirlas crearemos
+                    estas nuevas relaciones:
+
+                    \includegraphics[width=0.60\textwidth]{EjemploParaNormalizarA2FN2}
+
+                \end{SmallIndentation}
+                 
 
             % =========================================
             % =======        PASO 3    ================
             % =========================================
             \clearpage
-            \subsection{Paso 3: Eliminar Dependencias Transitivas}
+            \subsection{Tercera Forma Normal}
+
+                Este se base en el concepto de dependencia transitiva.
+                Una dependencia funcional $X \longto Y$ en un esquema de relación $R$
+                es una dependencia transitiva si existe un conjunto de atributos $Z$
+                que no sea subconjunto de las llaves claves de $R$, y se cumplen
+                que si $X \longto Y$ como $Y \longto Z$, entonces $X \longto Z$.
+
+                En la 3FN se elimina las dependencias transitivas; es decir atributos no
+                clave no dependen de otros atributos no clave.
+
+                Decimos que una Relación $R$ esta en su segunda forma normal
+                si y solo sí todos los atributos solo dependen de la llave primaria. 
+
+
+                % ======== EJEMPLO ========
+                \textbf{Ejemplo}:
+                \begin{SmallIndentation}[1em]
+
+                    Ve esta tabla:
+
+                    \includegraphics[width=0.70\textwidth]{EjemploParaNormalizarA3FN}
+                    
+                    Veamos estas dependencias funcionales que tiene esta tabla:
+                    \begin{itemize}
+                        \item $\{nss\} \to \{noDepartamento\}$ y $\{noDepartamento\} \to \{nssJefeDepto\}$ 
+                            y transitivamente también se cumple que $\{nss\} \to \{nssJefeDepto\}$
+                    \end{itemize}
+
+                    Nota que hay varias dependencias funcionales transitivas, para corregirlas crearemos
+                    estas nuevas relaciones:
+
+                    \includegraphics[width=0.60\textwidth]{EjemploParaNormalizarA3FN2}
+
+                \end{SmallIndentation}
 
 
 
@@ -1675,107 +1845,91 @@
             % =======        PASO 4    ================
             % =========================================
             \clearpage
-            \subsection{Paso 4: Eliminar Anomalías en Llaves Candidatas}
+            \subsection{Forma Normal de Boyce/Codd}
 
+                Este se logra al eliminar anomalías que pueden generarse al tener mas de una
+                llave candidata en una relación.
+
+                Decimos que una relación $R$ esta en al FNBC si y solo si
+                cada determinante es una llave candidata.
+
+                \vspace{3em}
+
+                % ======== EJEMPLO ========
+                \textbf{Ejemplo}:
+                \begin{SmallIndentation}[1em]
+                    
+                    Mira por ejemplo esta relación:
+                    
+                    \includegraphics[width=0.75\textwidth]{EjemploParaFNBC}
+
+                    Aquí hay algunos problemas:
+                    \begin{itemize}
+                        \item
+                            \textbf{Anomalía en Actualización}:
+                            Supóngase que el tutor del área de BD es cambiado por Edgar C.
+                            Este cambio tendrá que aplicarse este cambio en dos registros (o más)
+
+                        \item
+                            \textbf{Anomalía en Inserción}:
+                            Supóngase que queremos insertar la información de Ingeniería de Software
+                            cuyo tutor es Rosaura P. Esto no puede darse a cabo hasta que un
+                            estudiante de Ing de Software sea asignado a Rosaura P.
+
+                        \item
+                            \textbf{Anomalía en Eliminación}:
+                            Finalmente, si el estudiante con el noBoleta 789 deja la escuela, perderíamos
+                            la información de Gilberto Q. que es tutor de Redes.
+                    \end{itemize}
+
+                    Para corregirlo hacemos estas relaciones:
+
+                    \includegraphics[width=0.50\textwidth]{EjemploParaFNBC2}
+
+                \end{SmallIndentation}
+                    
+
+            
 
 
             % =========================================
-            % =======        PASO 5    ================
+            % =====    CUARTA FORMAL NORMAL     =======
             % =========================================
             \clearpage
-            \subsection{Paso 5: Eliminar Dependencias Multivaluadas}
+            \subsection{Cuarta Forma Normal}
 
-
-            % =========================================
-            % =======        PASO 6    ================
-            % =========================================
-            \clearpage
-            \subsection{Paso 6: Eliminar Dependencias de Junta (Join)}
+                Este se basa en eliminar Dependencias Multivaluadas, aquí no hay que
+                eliminar atributos ni agregar, simplemente hay que distribuir los atributos
+                en diversas tablas.
 
 
 
-                
+
     % ===============================================================================
-    % ==============       ALMACENAMIENTO DE INFORMACIÓN       ======================
+    % ==============             ALGEBRA RELACIONAL            ======================
     % ===============================================================================
-    \chapter{Almacenamiento de Información}
+    \chapter{Algebra Relacional}
 
 
         % ==============================================
-        % ===============   INDICES      ===============
+        % ===============   OPERADORES   ===============
         % ==============================================
         \clearpage
-        \section{Indices}
+        \section{Operadores}
+
+            Podemos ver al Algebra Relacional como una colección de operaciones que
+            son usadas para manipular relaciones completas. El resultado de cada
+            operación es una nueva relación, que a su vez también puede ser manipulada.
 
 
-            % ==============================================
-            % ===========  INTRODUCCIÓN      ===============
-            % ==============================================
-            \subsection{Introducción}
-
-                Muchas consultas hacen referencia solo a una pequeña proporción de los registros en un archivo.
-
-                Por ejemplo, una consulta como \Quote{Buscar todos los instructores en el departamento de Física}
-                o \Quote{Encontrar el número total de créditos obtenidos por el estudiante con ID 22201} hace
-                referencia a solo una fracción de los registros del estudiante.
-
-                Es ineficiente que el sistema lea cada tupla en la relación del instructor para verificar si
-                el departamento es ineficiente para leer toda la relación estudiantil solo para encontrar la
-                única tupla para la ID "32556".
-
-                Idealmente, el sistema debería poder ubicar estos registros directamente. Para permitir estas
-                formas de acceso, diseñamos estructuras adicionales que asociamos con los archivos.
-                
-
-                Un índice para un archivo en un sistema de base de datos funciona de forma muy parecida al
-                índice en este libro de texto. Si queremos aprender sobre un tema en particular (especificado
-                por una palabra o una frase) en este libro de texto, podemos buscar el tema en el índice al
-                final del libro, encontrar las páginas donde se produce y luego leer las páginas para encontrar
-                la información para la que estamos buscando. 
-
-                Las palabras en el índice están ordenadas, lo que facilita encontrar la palabra que queremos.
-                Además, el índice es mucho más pequeño que el libro, reduciendo aún más el esfuerzo necesario.
-
-                Los índices del sistema de base de datos cumplen el mismo rol que los índices de libros en
-                las bibliotecas.
-
-                Por ejemplo, para recuperar un registro de alumno con una ID, el sistema de base de datos
-                buscaría un índice para encontrar en qué bloque de disco reside el registro correspondiente,
-                y luego buscará el bloque de disco, para obtener el registro de estudiante apropiado.
-
-                Mantener una lista ordenada de ID de los estudiantes no funcionaría bien en bases de datos
-                muy grandes con miles de estudiantes, ya que el índice sería muy grande; Además, aunque mantener
-                el índice ordenado reduce el tiempo de búsqueda, encontrar un estudiante puede ser bastante lento.
 
 
-                \clearpage
-
-                Los índices en las BBDD pretenden aligerar las consultas, a modo de simil podríamos verlos
-                como un índice de libro. Buscar un capítulo en un libro sin un índice implicaría recorrer
-                el libro entero hasta que nos topasemos con el mientras que encontrarlo con un índice
-                supondría recorrer este último y luego ir directamente a la página en la que se encuentra
-                lo que nos interesa.
-
-                En general podemos decir que:
-                Un índice es una estructura de disco asociada con una tabla o una vista que acelera la 
-                recuperación de filas de la tabla o de la vista. Un índice contiene claves generadas a
-                partir de una o varias columnas de la tabla o la vista. 
-
-                Pro:
-                \begin{itemize}
-                    \item Las búsquedas recorren muchas menos tuplas.
-                    \item Menos carga.
-                    \item Mas velocidad.
-                \end{itemize}
 
 
-                Contras:
-                \begin{itemize}
-                    \item Evidentemente los índices tienen que generarse y posteriormente actualizarse
-                        con cada escritura, esto supone carga.
-                    \item Los índices ocupan espacio, se que parece de perogrullo, pero cuando superan en
-                        tamaño a la BBDD tienes un problema.
-                \end{itemize}
+
+
+
+
 
 
 
@@ -2030,6 +2184,34 @@
                 DELIMITER ;
                 CALL ProcedureName;
             \end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+% ===============================================
+% ========        BIBLIOGRAFIA            =======
+% ===============================================
+
+\begin{thebibliography}{10}
+
+    \bibitem{EulerProfe} 
+        Euler Hernandez Contreras
+        \textit{Apuntes de Bases de Datos}. 
+        Escuela Superior de Cómputo, IPN, 2017
+
+\end{thebibliography}
+
+
+
+
+
+
 
 \end{document}
 

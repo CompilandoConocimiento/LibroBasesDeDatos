@@ -2151,22 +2151,30 @@
                         ORDER BY FielName; 
             \end{lstlisting}
 
+
+
+
+
+
+
     % ===============================================================================
     % ===================        PROCEDURES EN SQL               ====================
     % ===============================================================================
     \clearpage
-    \chapter{Procedures en SQL}
-
-        Literalmente son como funciones, bueno, más específicamente son procedimientos,
-        es decir un conjunto de instrucciones en SQL que se ejecutan una tras otra.
+    \chapter{Procedimientos en SQL}
 
 
         % ========================================
         % =========    SINTAXIS      =============
         % ========================================
+        \clearpage
         \section{Sintaxis}
 
-            Empecemos por la sentencia general de las vistas:
+            Literalmente son como funciones, bueno, más específicamente son procedimientos,
+            es decir un conjunto de instrucciones en SQL que se ejecutan una tras otra.
+
+
+            Empecemos por la sintaxis general:
 
             \begin{lstlisting}[language=SQL, gobble=16]
                 DELIMITER &
@@ -2188,6 +2196,50 @@
 
 
 
+
+
+    % ===============================================================================
+    % ===================        PROCEDURES EN SQL               ====================
+    % ===============================================================================
+    \clearpage
+    \chapter{Actualizar ó Insertar Datos en SQL}
+
+
+        % ========================================
+        % =========    SINTAXIS      =============
+        % ========================================
+        \clearpage
+        \section{INSERT INTO}
+
+            Empecemos por la sintaxis general:
+
+            \begin{lstlisting}[language=SQL, gobble=16]
+                INSERT INTO TableName (FielName1, FielName2, ..., FielNameN)  
+                    VALUES (Value1, Value2, Value3,..., ValueN);
+            \end{lstlisting}
+
+            Recuerda puede que no necesites especificar el nombre de la columna
+            en la consulta SQL si estás agregando valores para todas las columnas de la tabla.
+            Pero recuerda ponerlas en el orden en el que estan las columnas en la tabla.
+
+            \begin{lstlisting}[language=SQL, gobble=16]
+                INSERT INTO TABLE_TableName VALUES (Value1, Value2, Value3,..., ValueN);
+            \end{lstlisting}
+
+
+        % ========================================
+        % =========    SINTAXIS      =============
+        % ========================================
+        \clearpage
+        \section{UPDATE}
+
+            Empecemos por la sintaxis general:
+
+            \begin{lstlisting}[language=SQL, gobble=16]
+                UPDATE TableName
+                    SET FielName = Value1, FielName = Value2, ...
+                    WHERE Condition;
+            \end{lstlisting}
 
 
 

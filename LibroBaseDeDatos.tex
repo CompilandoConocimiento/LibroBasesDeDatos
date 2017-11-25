@@ -10,6 +10,7 @@
     \usepackage[margin=1.2in]{geometry}                             %Margins and Geometry pacakge
     \usepackage{ifthen}                                             %Allow simple programming
     \usepackage{hyperref}                                           %Create MetaData for a PDF and LINKS!
+    \usepackage{pdfpages}                                           %Create MetaData for a PDF and LINKS!
     \hypersetup{pageanchor=false}                                   %Solve 'double page 1' warnings in build
     \setlength{\parindent}{0pt}                                     %Eliminate ugly indentation
     \author{Oscar Andrés Rosas}                                     %Who I am
@@ -41,7 +42,6 @@
     \usepackage{tabularx}                                           %Lets make tables awesome
     \usepackage{multirow}                                           %Lets make tables awesome
     \usepackage{multicol}                                           %Create multicolumns
-
 
     % *********   HEADERS AND FOOTERS ********
     \usepackage{fancyhdr}                                           %Lets make awesome headers/footers
@@ -159,38 +159,68 @@
     % TRIGONOMETRIC FUNCTIONS
     \newcommand{\Cos}[1]{\cos\Wrap{#1}}                             %Simple wrappers
     \newcommand{\Sin}[1]{\sin\Wrap{#1}}                             %Simple wrappers
+    \newcommand{\Tan}[1]{tan\Wrap{#1}}                              %Simple wrappers
+    
+    \newcommand{\Sec}[1]{sec\Wrap{#1}}                              %Simple wrappers
+    \newcommand{\Csc}[1]{csc\Wrap{#1}}                              %Simple wrappers
+    \newcommand{\Cot}[1]{cot\Wrap{#1}}                              %Simple wrappers
 
     % === COMPLEX ANALYSIS ===
     \newcommand \Cis[1]  {\Cos{#1} + i \Sin{#1}}                    %Use: \Cis for cos(x) + i sin(x)
     \newcommand \pCis[1] {\Wrap{\Cis{#1}}}                          %Use: \pCis for the same ut parantesis
     \newcommand \bCis[1] {\Brackets{\Cis{#1}}}                      %Use: \bCis for the same to Brackets
 
-    % === CALCULUS ===
-    \newcommand \Partial[2] {\dfrac{\partial #1}{\partial #2}}      %Use: \Partial for simple use
+    % ====== TRANSFORMS =====
+    \newcommand{\FourierT}[1]                                       %Use: \FourierT {Funtion} 
+        {\mathscr{F} \left\{ #1 \right\} }                          %Use: \FourierT {Funtion}
 
+    % === CALCULUS ===
+    \newcommand \MiniDerivate[1][x] {\dfrac{d}{d #1}}               %Use: \MiniDerivate for simple use
+    \newcommand \Derivate[2]                                        %Complete Derivate -- [f(x)][x]
+        {\dfrac{d \; #1}{d #2}}                                     %Use: \Partial for simple use
+    
+    \newcommand \MiniUpperDerivate[2]                               %Mini Derivate High Orden Derivate -- [x][1]
+        {\dfrac{d^{#2}}{d#1^{#2}}}                                  %Mini Derivate High Orden Derivate
+    \newcommand \UpperDerivate[3]                                   %Complete High Orden Derivate -- [f(x)][x][1]
+        {\dfrac{d^{#3} \; #1}{d#2^{#3}}}                            %Use: \UpperDerivate for simple use
+    
+    \newcommand \MiniPartial[1][x] {\dfrac{\partial}{\partial #1}} %Use: \MiniDerivate for simple use
+    \newcommand \Partial[2]                                        %Complete Derivate -- [f(x)][x]
+        {\dfrac{\partial \; #1}{\partial #2}}                      %Use: \Partial for simple use
+    
+    \newcommand \MiniUpperPartial[2]                                %Mini Derivate High Orden Derivate -- [x][1] 
+        {\dfrac{\partial^{#2}}{\partial #1^{#2}}}                   %Mini Derivate High Orden Derivate
+    \newcommand \UpperPartial[3]                                    %Complete High Orden Derivate -- [f(x)][x][1]
+        {\dfrac{\partial^{#3} \; #1}{\partial#2^{#3}}}              %Use: \UpperDerivate for simple use
+
+    \DeclareMathOperator \Evaluate  {\Big|}                         %Use: \Evaluate por Notation
+
+    
     % =====  GENERAL COLOR  =========
-    \definecolor{IndigoMD}{HTML}{3F51B5}                            %Use: Color :D
-    \definecolor{DeepPurpleMD}{HTML}{673AB7}                        %Use: Color :D
     \definecolor{TealMD}{HTML}{009688}                              %Use: Color :D        
-    \definecolor{BlueGrey800MD}{HTML}{37474F}                       %Use: Color :D
-    \definecolor{BlueGrey100MD}{HTML}{CFD8DC}                       %Use: Color :D
     \definecolor{IndigoMD}{HTML}{3F51B5}                            %Use: Color :D
     \definecolor{Green100MD}{HTML}{DCEDC8}                          %Use: Color :D
+    \definecolor{Blue300MD}{HTML}{64B5F6}                           %Use: Color :D
+    \definecolor{DeepPurpleMD}{HTML}{673AB7}                        %Use: Color :D
+    \definecolor{BlueGrey100MD}{HTML}{CFD8DC}                       %Use: Color :D
+    \definecolor{BlueGrey800MD}{HTML}{37474F}                       %Use: Color :D
+    \definecolor{BlueGrey200MD}{HTML}{B0BEC5}                       %Use: Color :D
+    \definecolor{Lime300MD}{HTML}{E6EE9C}                           %Use: Color :D
 
     \newenvironment{ColorText}[1]{                                  %Use: \begin{ColorText}
         \leavevmode\color{#1}\ignorespaces}                         %That's is!
-
 
     % =====  CODE EDITOR =========
     \lstdefinestyle{CompilandoStyle} {                              %This is Code Style
         backgroundcolor=\color{BlueGrey800MD},                      %Background Color  
         basicstyle=\tiny\color{white},                              %Font color
-        commentstyle=\color{BlueGrey100MD},                         %Comment color
-        stringstyle=\color{TealMD},                                 %String color
-        keywordstyle=\color{Green100MD},                            %keywords color
+        commentstyle=\color{BlueGrey200MD},                         %Comment color
+        stringstyle=\color{Lime300MD},                              %String color
+        keywordstyle=\color{Blue300MD},                             %keywords color
         numberstyle=\tiny\color{TealMD},                            %Size of a number
         frame=shadowbox,                                            %Adds a frame around the code
-        breakatwhitespace=true,                                     %Style                       
+        breakatwhitespace=true,                                     %Style   
+        showstringspaces=false,                                     %Hate those spaces                  
         breaklines=true,                                            %Style                   
         keepspaces=true,                                            %Style                   
         numbers=left,                                               %Style                   
@@ -205,32 +235,32 @@
 
 
 % =====================================================
-% ============     	  COVER PAGE	   ================
+% ============        COVER PAGE       ================
 % =====================================================
 \begin{document}
 \begin{titlepage}
 
-	\center
-	% ============ UNIVERSITY NAME AND DATA =========
-	\textbf{\textsc{\Large Proyecto Compilando Conocimiento}}\\[1.0cm] 
-	\textsc{\Large Programación}\\[1.0cm] 
+    \center
+    % ============ UNIVERSITY NAME AND DATA =========
+    \textbf{\textsc{\Large Proyecto Compilando Conocimiento}}\\[1.0cm] 
+    \textsc{\Large Programación}\\[1.0cm] 
 
-	% ============ NAME OF THE DOCUMENT  ============
-	\rule{\linewidth}{0.5mm} \\[1.0cm]
-		{ \huge \bfseries Bases de Datos}\\[1.0cm] 
-	\rule{\linewidth}{0.5mm} \\[2.0cm]
-	
-	% ====== SEMI TITLE ==========
-	{\LARGE Una Pequeña (Gran) Introducción}\\[7cm] 
-	
-	% ============  MY INFORMATION  =================
-	\begin{center} \large
+    % ============ NAME OF THE DOCUMENT  ============
+    \rule{\linewidth}{0.5mm} \\[1.0cm]
+        { \huge \bfseries Bases de Datos}\\[1.0cm] 
+    \rule{\linewidth}{0.5mm} \\[2.0cm]
+    
+    % ====== SEMI TITLE ==========
+    {\LARGE Una Pequeña (Gran) Introducción}\\[7cm] 
+    
+    % ============  MY INFORMATION  =================
+    \begin{center} \large
     \textbf{\textsc{Autores:}}\\
         Rosas Hernandez Oscar Andrés \\
         Lopez Manriquez Angel
     \end{center}
 
-	\vfill
+    \vfill
 
 \end{titlepage}
 
@@ -2173,6 +2203,9 @@
             Literalmente son como funciones, bueno, más específicamente son procedimientos,
             es decir un conjunto de instrucciones en SQL que se ejecutan una tras otra.
 
+            Estos subprogramas no devuelven un valor directamente, por lo que son usados
+            principalmente para realizar una acción.
+
 
             Empecemos por la sintaxis general:
 
@@ -2193,13 +2226,102 @@
                 CALL ProcedureName;
             \end{lstlisting}
 
+            Para llamarlas tenemos que ejecutar:
+            \begin{lstlisting}[language=SQL, gobble=16]
+                CALL ProcedureName;
+            \end{lstlisting}
+
+            Para eliminarla tenemos que hacer algo como:
+            \begin{lstlisting}[language=SQL, gobble=16]
+                DROP PROCEDURE ProcedureName;
+            \end{lstlisting}
 
 
 
 
 
     % ===============================================================================
-    % ===================        PROCEDURES EN SQL               ====================
+    % ===================        LOCKS EN SQL                    ====================
+    % ===============================================================================
+    \clearpage
+    \chapter{Locks en SQL}
+
+
+        % ========================================
+        % =========    INTRODUCCION   ============
+        % ========================================
+        \clearpage
+        \section{Introducción a los Locks en SQL}
+
+            MySQL nos da la opción de que cualquier sesión pueda adquirir la habilidad de obtener una llave
+            para modificar una tabla.
+
+            Esto nos sirve por ejemplo cuando queremos cooperar con otras sesiones para acceder a una tabla
+            o mucho mas seguido para evitar que otras instancias puedas modificar la tabla que estamos alterando
+            porque necesitamos garantizar que solo nuestra sesión tiene acceso a ella.
+
+            Una sesión puede adquirir una llave o liberarla para que otras sesiones la usen.
+
+            También podemos usarlos para imitar a las transacciones o para obtener una mayor velocidad al momento
+            de actualizar una tabla.
+
+            MySQL nos da la opción de que cualquier sesión pueda adquirir la habilidad de obtener una llave
+            para modificar una tabla.
+
+
+            % ========================================
+            % ====    REGLAS DE LOS LOCKS   ==========
+            % ========================================
+            \subsection{Reglas de los Locks}
+
+                \begin{itemize}
+                    \item 
+                        \textbf{Lock para Lectura}
+                        \begin{itemize}
+                            \item La sesión que pidio el Lock puede leer la tabla pero NO escribirla
+                            \item Muchas sesiones pueden tener el Lock al mismo tiempo
+                            \item Cualquier sesión puede leer incluso sin adquirir el lock
+                        \end{itemize}
+
+                    \item 
+                        \textbf{Lock para Escritura}
+                        \begin{itemize}
+                            \item La sesión que pidio el Lock puede leer y escribir la tabla
+                            \item Solo la sesión que pidio el lock puede acceder a la tabla
+                        \end{itemize}
+                \end{itemize}
+
+
+        % ========================================
+        % =========    SINTAXIS      =============
+        % ========================================
+        \clearpage
+        \section{Sintaxis}
+
+            Empecemos por la sintaxis general:
+
+            \begin{lstlisting}[language=SQL, gobble=16]
+                #For Read
+                LOCK TABLES TableName READ;
+
+                    SQLInstruccion1;
+                    SQLInstruccion2;
+                    ...
+
+                UNLOCK TABLES
+
+                #For Write
+                LOCK TABLES TableName WRITE;
+
+                    SQLInstruccion1;
+                    SQLInstruccion2;
+                    ...
+
+                UNLOCK TABLES
+            \end{lstlisting}
+
+    % ===============================================================================
+    % ===================        ACTUALIZAR EN SQL               ====================
     % ===============================================================================
     \clearpage
     \chapter{Actualizar ó Insertar Datos en SQL}

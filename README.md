@@ -41,7 +41,8 @@ acaba de empezar.
 **Compilar es Compartir**
 
 <br />
-[![DownloadButton](Graphics/BookShow.png)](https://CompilandoConocimiento.github.io/LibroBaseDeDatos/LibroBaseDeDatos.pdf)
+
+[![DownloadButton](Graphics/BookShow.png)](https://CompilandoConocimiento.github.io/LibroBasesDeDatos/LibroBasesDeDatos.pdf)
 
 ## Contenidos
 
@@ -83,7 +84,7 @@ En este libro podrás aprender sobre los siguientes temas:
 
 ### Ver el Documento en Línea o Descargarlo
 
-[![DownloadButton](Graphics/DownloadButton.png)](https://compilandoconocimiento.github.io/LibroBaseDeDatos/LibroBaseDeDatos.pdf)
+[![DownloadButton](Graphics/DownloadButton.png)](https://compilandoconocimiento.github.io/LibroBasesDeDatos/LibroBasesDeDatos.pdf)
 
 Puedes descargar ambos archivos para tu disfrute o modificar del código fuente siguiendo las ideas del software libre.
 
